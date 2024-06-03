@@ -2,59 +2,25 @@
 
 namespace Perspective\TutorialProductPage\Block;
 
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
+use Perspective\TutorialProductPage\ViewModel\Custom as CustomViewModel;
 
-class Custom extends \Magento\Catalog\Block\Product\View
+class Custom extends Template
 {
-    /** @var \Mozok\Mymodule\Helper\Custom  */
-    protected $_customHelper;
+    protected $viewModel;
 
     public function __construct(
-        \Magento\Catalog\Block\Product\Context $context,
-        \Magento\Framework\Url\EncoderInterface $urlEncoder,
-        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
-        \Magento\Framework\Stdlib\StringUtils $string,
-        \Magento\Catalog\Helper\Product $productHelper,
-        \Magento\Catalog\Model\ProductTypes\ConfigInterface $productTypeConfig,
-        \Magento\Framework\Locale\FormatInterface $localeFormat,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
-        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
-        \Perspective\TutorialProductPage\Helper\Custom $customHelper,
+        Context $context,
+        CustomViewModel $viewModel,
         array $data = []
     ) {
-        $this->_customHelper = $customHelper;
-        parent::__construct(
-            $context,
-            $urlEncoder,
-            $jsonEncoder,
-            $string,
-            $productHelper,
-            $productTypeConfig,
-            $localeFormat,
-            $customerSession,
-            $productRepository,
-            $priceCurrency,
-            $data);
+        $this->viewModel = $viewModel;
+        parent::__construct($context, $data);
     }
 
-    /**
-     * Get any value for our template
-     *
-     * @return string
-     */
-    public function getAnyCustomValue()
+    public function getViewModel()
     {
-        $currentProduct = $this->getProduct();
-        $customValue = "Any Value : ";
-        return $customValue . $currentProduct->getFinalPrice();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAvailable()
-    {
-        $currentProduct = $this->getProduct();
-        return $this->_customHelper->validateProductBySku($currentProduct->getSku());
+        return $this->viewModel;
     }
 }

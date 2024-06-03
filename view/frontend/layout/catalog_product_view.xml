@@ -12,6 +12,5 @@
                 before="product.price.tier">
             </block>
         </referenceContainer>
-
     </body>
 </page>

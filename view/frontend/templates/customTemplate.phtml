@@ -1,11 +1,15 @@
 <?php
-/** @var \Perspective\TutorialProductPage\Block\Custom $block */
+/** @var \Perspective\TutorialProductPage\ViewModel\Custom $viewModel */
+$viewModel = $block->getViewModel();
 ?>
-<?php if ($block->isAvailable()): ?>
-<h1>
-    Text Custom
-</h1>
-<h2>
-    <?= $block->getAnyCustomValue(); ?>
-</h2>
-<?php endif; ?>
+
+<div>
+    <p><?php echo $viewModel->getAnyCustomValue(); ?></p>
+    <?php if ($viewModel->isAvailable()): ?>
+    <h1>
+        Test Custom
+    </h1>
+    <?php endif; ?>
+
+</div>
+
